@@ -1,11 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
+import SplatElement from "./SplatElement.jsx";
 
-const SplatGrid = ({ className, leaders }) => (
+const SplatGrid = ({ className, leaders, vote }) => (
     <div className={className}>
         <ul>
             {leaders.map(leader => (
-                <li key={leader.name}>{leader.name}</li>
+                <li key={leader.name}>
+                    <SplatElement
+                        name={leader.name}
+                        image={leader.image}
+                        vote={() => vote(leader.name)}
+                        />
+                </li>
             ))}
         </ul>
     </div>
@@ -18,8 +25,10 @@ function mapStateToProps(state, ownProps) {
     };
 }
 
-function mapDispatchToProps() {
-    return {};
+function mapDispatchToProps(dispatch) {
+    return {
+        vote: (name) => console.log(name),
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SplatGrid);
