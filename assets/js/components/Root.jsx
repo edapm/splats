@@ -1,5 +1,8 @@
 import React from "react";
+import SplatGrid from "./SplatGrid.jsx";
 
 export default () => (
-    <div>Hello everyone</div>
+    <div className="root">
+        <SplatGrid className="root-splatgrid"/>
+    </div>
 );
