@@ -1,7 +1,5 @@
 import { combineReducers } from "redux";
-
-const number = (state=0, action) => state + 1;
-
+import leaders from "./leaders.js";
 export default combineReducers({
-    number,
+    leaders,
 });
