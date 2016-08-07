@@ -20,8 +20,8 @@ export default ({ leaders, rootDomElement, windowDevTools }) => {
     store.dispatch(setLeaders(leaders));
     ReactDOM.render(
         <Provider store={store}>
-            <Root/>
+            <Root />
         </Provider>,
         rootDomElement
     );
-}
+};

@@ -3,6 +3,6 @@ import SplatGrid from "./SplatGrid.jsx";
 
 export default () => (
     <div className="root">
-        <SplatGrid className="root-splatgrid"/>
+        <SplatGrid className="root-splatgrid" />
     </div>
 );

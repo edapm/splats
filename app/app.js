@@ -1,17 +1,17 @@
-var express = require("express");
-var app = express();
-var leaders = require("../data/leaders.json");
+const express = require("express");
+const leaders = require("../data/leaders.json");
 
+const app = express();
 app.use(express.static("static"));
 
-app.get("/", function(req, res) {
+app.get("/", (req, res) => {
     res.redirect("/vote.html");
 });
 
-app.get("/leaders", function(req, res) {
+app.get("/leaders", (req, res) => {
     res.send(leaders);
 });
 
-app.listen(3000, function() {
+app.listen(3000, () => {
     console.log("Listening on port 3000!");
 });

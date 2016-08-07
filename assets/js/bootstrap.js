@@ -1,8 +1,8 @@
 import app from "./app.js";
 
 const req = new XMLHttpRequest();
-req.addEventListener("load", function () {
-    const leaders = JSON.parse(this.responseText);
+req.addEventListener("load", () => {
+    const leaders = JSON.parse(req.responseText);
     app({
         rootDomElement: document.getElementById("root"),
         leaders,
