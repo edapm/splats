@@ -6,6 +6,7 @@ req.addEventListener("load", function () {
     app({
         rootDomElement: document.getElementById("root"),
         leaders,
+        windowDevTools: window.devToolsExtension ? window.devToolsExtension() : f => f,
     });
 });
 req.open("GET", "/leaders");
