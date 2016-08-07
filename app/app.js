@@ -1,5 +1,5 @@
 const express = require("express");
-const leaders = require("../data/leaders.json");
+const db = require("./db");
 
 const app = express();
 app.use(express.static("static"));
@@ -9,7 +9,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/leaders", (req, res) => {
-    res.send(leaders);
+    db.getLeaders().then((leaders) => res.send(leaders));
 });
 
 app.listen(3000, () => {
