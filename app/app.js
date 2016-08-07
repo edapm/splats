@@ -2,6 +2,10 @@ const express = require("express");
 const db = require("./db");
 
 const app = express();
+
+// Yeah I know I shouldn't hard-code passwords, but this is a tiny project.
+const PASSWORD = "thisismypassword";
+
 app.use(express.static("static"));
 
 app.get("/", (req, res) => {
@@ -41,16 +45,30 @@ app.post("/vote", (req, res) => {
     });
 });
 
+function handlePassword(req, res, handler) {
+    const password = req.query.password;
+    if (password === PASSWORD) {
+        handler(req, res);
+    } else {
+        res.status(403);
+        res.send("Correct password was not given!");
+    }
+}
+
 app.get("/results", (req, res) => {
-    db.getVotes().then(votes => {
-        res.send(votes);
+    handlePassword(req, res, () => {
+        db.getVotes().then(votes => {
+            res.send(votes);
+        });
     });
 });
 
 app.put("/reset", (req, res) => {
-    db.resetVotes().then(() => {
-        res.status(204);
-        res.send();
+    handlePassword(req, res, () => {
+        db.resetVotes().then(() => {
+            res.status(204);
+            res.send();
+        });
     });
 });
 
