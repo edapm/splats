@@ -41,6 +41,14 @@ function getVotes() {
     });
 }
 
+function isLeaderNameValid(name) {
+    return new Promise((resolve) => {
+        getLeaders().then(leaders => {
+            resolve(leaders.map(leader => leader.name).includes(name));
+        });
+    });
+}
+
 function addVoteForLeader(name) {
     return new Promise((resolve) => {
         getVotes().then(leaders => {
@@ -63,4 +71,5 @@ function addVoteForLeader(name) {
 module.exports = {
     getLeaders,
     addVoteForLeader,
+    isLeaderNameValid,
 };
