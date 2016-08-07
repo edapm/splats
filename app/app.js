@@ -41,6 +41,19 @@ app.post("/vote", (req, res) => {
     });
 });
 
+app.get("/results", (req, res) => {
+    db.getVotes().then(votes => {
+        res.send(votes);
+    });
+});
+
+app.put("/reset", (req, res) => {
+    db.resetVotes().then(() => {
+        res.status(204);
+        res.send();
+    });
+});
+
 app.listen(3000, () => {
     console.log("Listening on port 3000!");
 });

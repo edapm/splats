@@ -86,10 +86,19 @@ function addVoteForIp(name) {
     });
 }
 
+function resetVotes() {
+    return writeFile(VOTES_DB_PATH, "[]")
+    .then(() => {
+        writeFile(IP_DB_PATH, "[]");
+    });
+}
+
 module.exports = {
     getLeaders,
+    getVotes,
     addVoteForLeader,
     isLeaderNameValid,
     isIpAllowedToVote,
     addVoteForIp,
+    resetVotes,
 };
