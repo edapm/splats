@@ -14,18 +14,29 @@ app.get("/leaders", (req, res) => {
 
 app.post("/vote", (req, res) => {
     const leaderName = req.query.leader;
-    db.isLeaderNameValid(leaderName).then(valid => {
-        if (valid) {
-            db.addVoteForLeader(leaderName).then(() => {
-                res.status(204);
-                res.send();
-            }).catch(() => {
-                res.status(500);
-                res.send("Server error");
+    const ip = req.ip;
+    db.isIpAllowedToVote(ip).then(allowed => {
+        if (allowed) {
+            db.isLeaderNameValid(leaderName).then(valid => {
+                if (valid) {
+                    db.addVoteForLeader(leaderName)
+                    .then(() => db.addVoteForIp(ip))
+                    .then(() => {
+                        res.status(204);
+                        res.send();
+                    })
+                    .catch(() => {
+                        res.status(500);
+                        res.send("Server error");
+                    });
+                } else {
+                    res.status(400);
+                    res.send("Bad leader name");
+                }
             });
         } else {
-            res.status(400);
-            res.send("Bad leader name");
+            res.status(403);
+            res.send("You have used all your votes for today!");
         }
     });
 });
