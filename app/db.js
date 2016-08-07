@@ -28,30 +28,35 @@ function writeFile(path, data) {
 }
 
 function getLeaders() {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         readFile(LEADERS_DB_PATH)
-        .then(data => resolve(JSON.parse(data)));
+        .then(data => resolve(JSON.parse(data)))
+        .catch(err => reject(err));
     });
 }
 
 function getVotes() {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         readFile(VOTES_DB_PATH)
-        .then(data => resolve(JSON.parse(data)));
+        .then(data => resolve(JSON.parse(data)))
+        .catch(err => reject(err));
     });
 }
 
 function isLeaderNameValid(name) {
-    return new Promise((resolve) => {
-        getLeaders().then(leaders => {
+    return new Promise((resolve, reject) => {
+        getLeaders()
+        .then(leaders => {
             resolve(leaders.map(leader => leader.name).includes(name));
-        });
+        })
+        .catch(err => reject(err));
     });
 }
 
 function addVoteForLeader(name) {
-    return new Promise((resolve) => {
-        getVotes().then(leaders => {
+    return new Promise((resolve, reject) => {
+        getVotes()
+        .then(leaders => {
             const victim = leaders.find(leader => leader.name === name);
             if (victim) {
                 victim.votes += 1;
@@ -62,9 +67,9 @@ function addVoteForLeader(name) {
                 });
             }
             return writeFile(VOTES_DB_PATH, JSON.stringify(leaders));
-        }).then(() => {
-            resolve();
-        });
+        })
+        .then(() => resolve())
+        .catch(err => reject(err));
     });
 }
 

@@ -19,9 +19,9 @@ app.post("/vote", (req, res) => {
             db.addVoteForLeader(leaderName).then(() => {
                 res.status(204);
                 res.send();
-            }).catch(err => {
+            }).catch(() => {
                 res.status(500);
-                res.send(err);
+                res.send("Server error");
             });
         } else {
             res.status(400);

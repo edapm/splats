@@ -1,3 +1,5 @@
+import { post } from "../utils.js";
+
 export function setLeaders(leaders) {
     return {
         type: "SET_LEADERS",
@@ -6,7 +8,9 @@ export function setLeaders(leaders) {
 }
 
 export function voteForLeader(leader) {
-    return () => {
-        console.log(`you voted for leader ${leader}`);
+    return dispatch => {
+        post("/vote", { leader }).then(() => {
+            // dispatch({ type: "FOO FOO" });
+        });
     };
 }
