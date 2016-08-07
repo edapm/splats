@@ -30,57 +30,34 @@ function writeFile(path, data) {
 }
 
 function getLeaders() {
-    return new Promise((resolve, reject) => {
-        readFile(LEADERS_DB_PATH)
-        .then(data => resolve(JSON.parse(data)))
-        .catch(err => reject(err));
-    });
+    return readFile(LEADERS_DB_PATH).then(data => JSON.parse(data));
 }
 
 function getVotes() {
-    return new Promise((resolve, reject) => {
-        readFile(VOTES_DB_PATH)
-        .then(data => resolve(JSON.parse(data)))
-        .catch(err => reject(err));
-    });
+    return readFile(VOTES_DB_PATH).then(data => JSON.parse(data));
 }
 
 function isLeaderNameValid(name) {
-    return new Promise((resolve, reject) => {
-        getLeaders()
-        .then(leaders => {
-            resolve(leaders.map(leader => leader.name).includes(name));
-        })
-        .catch(err => reject(err));
-    });
+    return getLeaders().then(leaders => leaders.map(leader => leader.name).includes(name));
 }
 
 function addVoteForLeader(name) {
-    return new Promise((resolve, reject) => {
-        getVotes()
-        .then(leaders => {
-            const victim = leaders.find(leader => leader.name === name);
-            if (victim) {
-                victim.votes += 1;
-            } else {
-                leaders.push({
-                    name,
-                    votes: 1,
-                });
-            }
-            return writeFile(VOTES_DB_PATH, JSON.stringify(leaders));
-        })
-        .then(() => resolve())
-        .catch(err => reject(err));
+    return getVotes().then(leaders => {
+        const victim = leaders.find(leader => leader.name === name);
+        if (victim) {
+            victim.votes += 1;
+        } else {
+            leaders.push({
+                name,
+                votes: 1,
+            });
+        }
+        return writeFile(VOTES_DB_PATH, JSON.stringify(leaders));
     });
 }
 
 function getIpVotes() {
-    return new Promise((resolve, reject) => {
-        readFile(IP_DB_PATH)
-        .then(data => resolve(JSON.parse(data)))
-        .catch(err => reject(err));
-    });
+    return readFile(IP_DB_PATH).then(data => JSON.parse(data));
 }
 
 function votesForIp(ip) {
@@ -95,22 +72,17 @@ function isIpAllowedToVote(ip) {
 }
 
 function addVoteForIp(name) {
-    return new Promise((resolve, reject) => {
-        getIpVotes()
-        .then(ips => {
-            const voter = ips.find(ip => ip.name === name);
-            if (voter) {
-                voter.votes += 1;
-            } else {
-                ips.push({
-                    name,
-                    votes: 1,
-                });
-            }
-            return writeFile(IP_DB_PATH, JSON.stringify(ips));
-        })
-        .then(() => resolve())
-        .catch(err => reject(err));
+    return getIpVotes().then(ips => {
+        const voter = ips.find(ip => ip.name === name);
+        if (voter) {
+            voter.votes += 1;
+        } else {
+            ips.push({
+                name,
+                votes: 1,
+            });
+        }
+        return writeFile(IP_DB_PATH, JSON.stringify(ips));
     });
 }
 
