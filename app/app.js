@@ -12,11 +12,11 @@ app.get("/", (req, res) => {
     res.redirect("/vote.html");
 });
 
-app.get("/leaders", (req, res) => {
+app.get("/api/leaders", (req, res) => {
     db.getLeaders().then((leaders) => res.send(leaders));
 });
 
-app.post("/vote", (req, res) => {
+app.post("/api/vote", (req, res) => {
     const leaderName = req.query.leader;
     const ip = req.ip;
     db.isIpAllowedToVote(ip).then(allowed => {
@@ -55,7 +55,7 @@ function handlePassword(req, res, handler) {
     }
 }
 
-app.get("/results", (req, res) => {
+app.get("/api/results", (req, res) => {
     handlePassword(req, res, () => {
         db.getVotes().then(votes => {
             res.send(votes);
@@ -63,7 +63,7 @@ app.get("/results", (req, res) => {
     });
 });
 
-app.put("/reset", (req, res) => {
+app.put("/api/reset", (req, res) => {
     handlePassword(req, res, () => {
         db.resetVotes().then(() => {
             res.status(204);

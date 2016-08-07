@@ -9,5 +9,5 @@ req.addEventListener("load", () => {
         windowDevTools: window.devToolsExtension ? window.devToolsExtension() : f => f,
     });
 });
-req.open("GET", "/leaders");
+req.open("GET", "/api/leaders");
 req.send();

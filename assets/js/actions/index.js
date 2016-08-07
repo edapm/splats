@@ -9,7 +9,7 @@ export function setLeaders(leaders) {
 
 export function voteForLeader(leader) {
     return dispatch => {
-        post("/vote", { leader }).then(() => {
+        post("/api/vote", { leader }).then(() => {
             // dispatch({ type: "FOO FOO" });
         });
     };
