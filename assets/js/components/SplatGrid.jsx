@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import SplatElement from "./SplatElement.jsx";
+import { voteForLeader } from "../actions";
 
 const SplatGrid = ({ className, leaders, vote }) => (
     <div className={className}>
@@ -27,7 +28,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        vote: (name) => console.log(name),
+        vote: (name) => dispatch(voteForLeader(name)),
     };
 }
 
