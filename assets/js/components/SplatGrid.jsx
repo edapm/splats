@@ -5,17 +5,17 @@ import { voteForLeader } from "../actions";
 
 const SplatGrid = ({ className, leaders, vote }) => (
     <div className={className}>
-        <ul>
+        <div className="splatgrid">
             {leaders.map(leader => (
-                <li key={leader.name}>
+                <div key={leader.name}>
                     <SplatElement
                         name={leader.name}
                         image={leader.image}
                         vote={() => vote(leader.name)}
                         />
-                </li>
+                </div>
             ))}
-        </ul>
+        </div>
     </div>
 );
 

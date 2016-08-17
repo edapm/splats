@@ -1,0 +1,22 @@
+.splatelement {
+  background-color: #fff;
+  color: $colour-primary;
+  cursor: pointer;
+  flex-basis: 100px;
+}
+
+.splatelement-image {
+  display: block;
+  max-width: 200px;
+}
+
+$splatelement-text-padding: 5px;
+
+.splatelement-text {
+  display: block;
+  font-size: 110%;
+  padding-top: $splatelement-text-padding;
+  padding-bottom: $splatelement-text-padding;
+  text-align: center;
+  width: 100%;
+}
