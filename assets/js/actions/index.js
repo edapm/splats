@@ -7,10 +7,22 @@ export function setLeaders(leaders) {
     };
 }
 
+export function votedForLeader() {
+    return {
+        type: "VOTED_FOR_LEADER",
+    };
+}
+
 export function voteForLeader(leader) {
     return dispatch => {
         post("/api/vote", { leader }).then(() => {
-            // dispatch({ type: "FOO FOO" });
+            dispatch(votedForLeader());
         });
+    };
+}
+
+export function dialogCancelPressed() {
+    return {
+        type: "DIALOG_CANCEL_PRESSED",
     };
 }

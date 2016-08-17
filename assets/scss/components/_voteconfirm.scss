@@ -1,0 +1,22 @@
+.voteconfirm {
+  background-color: $colour-dark-translucent;
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.voteconfirm-textbox {
+  background-color: $colour-page-background;
+  padding: 100px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.voteconfirm-textbox-text {
+}
+
+.voteconfirm-button {
+}
