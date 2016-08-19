@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Reset</title>
+    </head>
+    <body>
+        <h1>Reset</h1>
+        <div id="results-root">
+            Enter password here to RESET the votes:&nbsp;
+            <input id="reset-password" />
+            <button id="reset-button">Submit</button>
+            <div id="reset-result"></div>
+        </div>
+    </body>
+    <script type="application/javascript">
+        var button = document.getElementById("reset-button");
+        var input = document.getElementById("reset-password");
+        var output = document.getElementById("reset-result");
+        button.onclick = function() {
+            var pw = input.value;
+            var req = new XMLHttpRequest();
+            req.onload = () => {
+                output.innerHTML = "Reset successful!"
+            };
+            req.onerror = () => {
+                var error = req.responseText;
+                output.innerHTML = error;
+            };
+            req.open("PUT", "/api/reset?password=" + pw);
+            req.send();
+        }
+    </script>
+</html>

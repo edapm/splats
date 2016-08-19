@@ -59,6 +59,9 @@ app.get("/api/results", (req, res) => {
     handlePassword(req, res, () => {
         db.getVotes().then(votes => {
             res.send(votes);
+        }).catch(() => {
+            res.status(500);
+            res.send("Internal server error");
         });
     });
 });
@@ -68,6 +71,9 @@ app.put("/api/reset", (req, res) => {
         db.resetVotes().then(() => {
             res.status(204);
             res.send();
+        }).catch(() => {
+            res.status(500);
+            res.send("Internal server error");
         });
     });
 });
