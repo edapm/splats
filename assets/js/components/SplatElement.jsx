@@ -8,5 +8,6 @@ export default ({ name, image, vote }) => (
             alt={name}
             />
         <div className="splatelement-text">{name}</div>
+        <div className="splatelement-dimlayer" />
     </div>
 );
