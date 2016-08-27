@@ -1,10 +1,22 @@
 .root {
-  background-image: url("/images/background.jpg");
-  background-position: center center;
-  background-size: cover;
   font-family: sans-serif;
   font-weight: 300;
   text-align: center;
+}
+
+.root-background {
+  background-image: url("/images/background.jpg");
+  background-position: center center;
+  background-size: cover;
+  height: 100%;
+  position: fixed;
+  width: 100%;
+  z-index: 0;
+}
+
+.root-content {
+  position: relative;
+  z-index: 5;
 }
 
 .root-splatgrid {
