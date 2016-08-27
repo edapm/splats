@@ -3,13 +3,10 @@ import React from "react";
 export default ({ name, image, vote }) => (
     <div className="splatelement" onClick={vote}>
         <div
-            className="splatelement-imagebox"
+            className="splatelement-image"
+            style={{ backgroundImage: `url(${image})` }}
             >
-            <img
-                className="splatelement-image"
-                src={image}
-                alt={name}
-                />
+            &nbsp;
         </div>
         <div className="splatelement-text">{name}</div>
         <div className="splatelement-dimlayer" />

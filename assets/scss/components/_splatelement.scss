@@ -2,7 +2,10 @@
   background-color: $colour-splatelement-background;
   color: $colour-primary;
   cursor: pointer;
+  display: flex;
+  flex-flow: column nowrap;
   height: 100%;
+  width: 100%;
   position: relative;
 }
 
@@ -22,13 +25,13 @@
 }
 
 
-.splatelement-imagebox {
-  display: block;
-  overflow-y: hidden;
-  width: 100%;
-}
-
 .splatelement-image {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  flex-basis: 100%;
+  flex-shrink: 1;
+  overflow-y: hidden;
   height: 100%;
   width: 100%;
 }
@@ -36,10 +39,10 @@
 $splatelement-text-padding: 10px;
 
 .splatelement-text {
-  display: block;
+  flex-grow: 0;
   font-size: 110%;
-  // padding-top: $splatelement-text-padding;
-  // padding-bottom: $splatelement-text-padding;
+  padding-top: $splatelement-text-padding;
+  padding-bottom: $splatelement-text-padding;
   text-align: center;
   width: 100%;
 }
