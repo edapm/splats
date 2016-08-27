@@ -9,7 +9,7 @@
     "html": "cp assets/html/*.html static/",
     "css": "node-sass assets/scss/*.scss -o static/css/",
     "js": "browserify assets/js/bootstrap.js -t [ babelify --presets [ react es2015 stage-3 ] --plugins [ transform-runtime ] ] --debug -o static/js/bootstrap.js",
-    "images": "cp data/images/* static/images",
+    "images": "cp data/images/* static/images && cp assets/images/* static/images",
     "clean": "rm -f static/*.html static/css/* static/js/*",
     "server": "node app/app.js"
   },
