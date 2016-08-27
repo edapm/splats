@@ -4,12 +4,10 @@
   "description": "Splat the leader!",
   "main": "server.js",
   "scripts": {
-    "start": "npm run build && npm run server",
-    "build": "npm run clean && npm run leaders && npm run images && npm run html && npm run js",
-    "html": "cp assets/html/*.html static/",
+    "start": "npm run server",
+    "build": "npm run leaders && npm run js && gulp",
+    "watch": "npm run leaders && npm run js && gulp watch",
     "js": "browserify assets/js/bootstrap.js -t [ babelify --presets [ react es2015 stage-3 ] --plugins [ transform-runtime ] ] --debug -o static/js/bootstrap.js",
-    "images": "cp data/images/* static/images && cp assets/images/* static/images",
-    "clean": "rm -f static/*.html static/js/*",
     "leaders": "python scripts/populate.py && rm -f data/images/* && cp dump/img/* data/images",
     "server": "node app/app.js"
   },
