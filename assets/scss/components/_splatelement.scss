@@ -2,11 +2,17 @@
   background-color: $colour-splatelement-background;
   color: $colour-primary;
   cursor: pointer;
+  padding-bottom: 150%;
+  position: relative;
+  width: 100%;
+}
+
+.splatelement-content {
   display: flex;
   flex-flow: column nowrap;
-  height: 100%;
   width: 100%;
-  position: relative;
+  position: absolute;
+  height: 100%;
 }
 
 .splatelement-dimlayer {
