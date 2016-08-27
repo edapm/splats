@@ -10,7 +10,7 @@ const SplatGrid = ({ className, leaders, vote }) => (
                 <div key={leader.name}>
                     <SplatElement
                         name={leader.name}
-                        image={leader.image}
+                        image={`/images/${leader.img}`}
                         vote={() => vote(leader.name)}
                         />
                 </div>
