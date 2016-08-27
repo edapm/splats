@@ -7,7 +7,10 @@ const SplatGrid = ({ className, leaders, vote }) => (
     <div className={className}>
         <div className="splatgrid">
             {leaders.map(leader => (
-                <div key={leader.name}>
+                <div
+                    key={leader.name}
+                    className="splatgrid-element"
+                    >
                     <SplatElement
                         name={leader.name}
                         image={`/images/${leader.img}`}
