@@ -4,11 +4,10 @@
   "description": "Splat the leader!",
   "main": "server.js",
   "scripts": {
-    "start": "npm run leaders && npm run server",
+    "start": "node app/app.js",
     "build": "gulp",
     "watch": "gulp watch",
     "leaders": "python scripts/populate.py && rm -f data/images/* && cp dump/img/* data/images",
-    "server": "node app/app.js"
   },
   "author": "Ben Robinson",
   "license": "MIT",
