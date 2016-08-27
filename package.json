@@ -7,7 +7,7 @@
     "start": "node app/app.js",
     "build": "gulp",
     "watch": "gulp watch",
-    "leaders": "python scripts/populate.py && rm -f data/images/* && cp dump/img/* data/images",
+    "leaders": "python scripts/populate.py && rm -f data/images/* && cp dump/img/* data/images"
   },
   "author": "Ben Robinson",
   "license": "MIT",
