@@ -2,7 +2,9 @@ const gulp = require("gulp");
 const sass = require("gulp-sass");
 const imagemin = require("gulp-imagemin");
 const source = require("vinyl-source-stream");
+const buffer = require("vinyl-buffer");
 const browserify = require("browserify");
+const uglify = require("gulp-uglify");
 
 const HTML_PATHS = ["./assets/html/**/*.html"];
 const IMG_PATHS = ["./assets/images/*.jpg", "./data/images/*.{jpg,JPG}"];
@@ -34,6 +36,8 @@ gulp.task("build-js", () =>
     .bundle()
     // Pass desired output filename to vinyl-source-stream
     .pipe(source("bootstrap.js"))
+    .pipe(buffer())
+    .pipe(uglify())
     // Start piping stream to tasks!
     .pipe(gulp.dest("./static/js"))
 );

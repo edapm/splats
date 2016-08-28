@@ -30,6 +30,7 @@
     "gulp-imagemin": "^3.0.3",
     "gulp-sass": "^2.3.2",
     "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^2.0.0",
     "immutable": "^3.8.1",
     "node-sass": "^3.8.0",
     "react": "^0.14.7",
@@ -38,6 +39,7 @@
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
     "sass-lint": "^1.8.2",
+    "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0"
   }
