@@ -8,10 +8,6 @@ const PASSWORD = "thisismypassword";
 
 app.use(express.static("static"));
 
-app.get("/", (req, res) => {
-    res.redirect("/vote.html");
-});
-
 app.get("/api/leaders", (req, res) => {
     db.getLeaders().then((leaders) => res.send(leaders));
 });
@@ -37,11 +33,17 @@ app.post("/api/vote", (req, res) => {
                     res.status(400);
                     res.send("Bad leader name");
                 }
+            }).catch(() => {
+                res.status(500);
+                res.send("IP valid failed");
             });
         } else {
             res.status(403);
             res.send("You have used all your votes for today!");
         }
+    }).catch(() => {
+        res.status(500);
+        res.send("IP permission failed");
     });
 });
 
