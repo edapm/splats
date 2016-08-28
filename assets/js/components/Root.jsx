@@ -6,7 +6,6 @@ import { dialogCancelPressed } from "../actions";
 
 const Root = ({ isDialogVisible, dismissDialog }) => (
     <div className="root">
-        <div className="root-background">&nbsp;</div>
         <div className="root-voteconfirm" hidden={!isDialogVisible}>
             <VoteConfirm onClick={dismissDialog} />
         </div>
