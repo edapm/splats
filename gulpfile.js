@@ -10,6 +10,7 @@ const HTML_PATHS = ["./assets/html/**/*.html"];
 const IMG_PATHS = ["./assets/images/*.jpg", "./data/images/*.{jpg,JPG}"];
 const JS_PATHS = ["./assets/js/**/*.{js,jsx}"];
 const SCSS_PATHS = ["./assets/scss/**/*.scss"];
+const FONT_PATHS = ["./assets/fonts/**/*.ttf"];
 
 gulp.task("copy-html", () =>
     gulp.src(HTML_PATHS).pipe(gulp.dest("./static"))
@@ -19,6 +20,11 @@ gulp.task("copy-images", () =>
     gulp.src(IMG_PATHS)
     .pipe(imagemin())
     .pipe(gulp.dest("./static/images"))
+);
+
+gulp.task("copy-fonts", () =>
+    gulp.src(FONT_PATHS)
+    .pipe(gulp.dest("./static/fonts"))
 );
 
 gulp.task("build-scss", () =>
@@ -42,7 +48,7 @@ gulp.task("build-js", () =>
     .pipe(gulp.dest("./static/js"))
 );
 
-gulp.task("build", ["build-scss", "copy-html", "copy-images", "build-js"]);
+gulp.task("build", ["build-scss", "copy-html", "copy-fonts", "copy-images", "build-js"]);
 
 gulp.task("default", ["build"]);
 
