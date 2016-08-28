@@ -6,10 +6,10 @@ def main():
     result = []
 
     for row in read_csv():
-        image = row[1]
+        image = row[1].strip()
         if image == "--":
             image = None
-        entry = {"name": row[0], "img": image}
+        entry = {"name": row[0].strip(), "img": image}
         result.append(entry)
 
     # Save to leaders.json
