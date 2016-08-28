@@ -1,6 +1,7 @@
 const gulp = require("gulp");
 const sass = require("gulp-sass");
 const exec = require("child_process").exec;
+const imagemin = require("gulp-imagemin");
 
 const HTML_PATHS = ["./assets/html/**/*.html"];
 const IMG_PATHS = ["./assets/images/*.jpg", "./data/images/*.{jpg,JPG}"];
@@ -12,7 +13,9 @@ gulp.task("copy-html", () =>
 );
 
 gulp.task("copy-images", () =>
-    gulp.src(IMG_PATHS).pipe(gulp.dest("./static/images"))
+    gulp.src(IMG_PATHS)
+    .pipe(imagemin())
+    .pipe(gulp.dest("./static/images"))
 );
 
 gulp.task("build-scss", () =>
