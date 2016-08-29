@@ -21,11 +21,13 @@
             var pw = input.value;
             var req = new XMLHttpRequest();
             req.onload = () => {
-                output.innerHTML = "Reset successful!"
-            };
-            req.onerror = () => {
-                var error = req.responseText;
-                output.innerHTML = error;
+                if(req.status < 400) {
+                    output.innerHTML = "Reset successful!"
+                }
+                else {
+                    var error = req.responseText;
+                    output.innerHTML = error;
+                }
             };
             req.open("PUT", "/api/reset?password=" + pw);
             req.send();

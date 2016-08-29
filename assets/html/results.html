@@ -21,18 +21,21 @@
             var pw = input.value;
             var req = new XMLHttpRequest();
             req.onload = () => {
-                var result = JSON.parse(req.responseText);
-                result.sort(function(a, b) { return (b.votes - a.votes)});
-                for(var i=0; i<result.length; i++) {
-                    output.innerHTML += (result[i].name + ": " + result[i].votes + "<br/>");
+                output.innerHTML = "";
+                if(req.status < 400) {
+                    var result = JSON.parse(req.responseText);
+                    result.sort(function(a, b) { return (b.votes - a.votes)});
+                    for(var i=0; i<result.length; i++) {
+                        output.innerHTML += (result[i].name + ": " + result[i].votes + "<br/>");
+                    }
+                    if(result.length === 0) {
+                        output.innerHTML = "No votes yet!"
+                    }
                 }
-                if(result.length === 0) {
-                    output.innerHTML = "No votes yet!"
+                else {
+                    var error = req.responseText;
+                    output.innerHTML = error;
                 }
-            };
-            req.onerror = () => {
-                var error = req.responseText;
-                output.innerHTML = error;
             };
             req.open("GET", "/api/results?password=" + pw);
             req.send();
