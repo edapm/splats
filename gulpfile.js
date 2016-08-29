@@ -7,7 +7,7 @@ const browserify = require("browserify");
 const uglify = require("gulp-uglify");
 
 const HTML_PATHS = ["./assets/html/**/*.html"];
-const IMG_PATHS = ["./assets/images/*.jpg", "./data/images/*.{jpg,JPG}"];
+const IMG_PATHS = ["./assets/images/*.jpg", "./data/images/*"];
 const JS_PATHS = ["./assets/js/**/*.{js,jsx}"];
 const SCSS_PATHS = ["./assets/scss/**/*.scss"];
 const FONT_PATHS = ["./assets/fonts/**/*.ttf"];
