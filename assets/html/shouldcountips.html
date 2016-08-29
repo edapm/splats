@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Should IPs be counted?</title>
+    </head>
+    <body>
+        <h1>Are IPs being counted?</h1>
+        <div>
+            <p>Currently IP counting is set to: <span id="oldstate"></span></p>
+            <p>Enter password here and click one of the buttons to set the new state:
+                <input id="password" />
+                <button id="docount">DO count IPs</button>
+                <button id="donotcount">DO NOT count IPs</button>
+            </p>
+            <div id="result"></div>
+        </div>
+    </body>
+    <script type="application/javascript">
+        var input = document.getElementById("password");
+        var output = document.getElementById("result");
+        function setCounting(counting) {
+            var pw = input.value;
+            var req = new XMLHttpRequest();
+            req.onload = () => {
+                if(req.status < 400) {
+                    output.innerHTML = "IP counting is now set to: " + req.responseText;
+                }
+                else {
+                    output.innerHTML = req.responseText;
+                }
+            };
+
+            req.open("PUT", "/api/shouldcountips?password=" + pw + "&shouldcount=" + counting);
+            req.send();
+        }
+        var doCount = document.getElementById("docount");
+        var doNotCount = document.getElementById("donotcount");
+        doCount.onclick = function() {
+            setCounting(true);
+        }
+        doNotCount.onclick = function() {
+            setCounting(false);
+        }
+
+        // We update the "oldstate" tag on the page:
+        var oldState = document.getElementById("oldstate");
+        // cReq means "request for current state"
+        var cReq = new XMLHttpRequest();
+        cReq.onload = () => {
+            oldState.innerHTML = cReq.responseText;
+        }
+        cReq.open("GET", "/api/shouldcountips");
+        cReq.send();
+    </script>
+</html>

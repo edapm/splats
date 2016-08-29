@@ -80,6 +80,30 @@ app.put("/api/reset", (req, res) => {
     });
 });
 
+app.get("/api/shouldcountips", (req, res) => {
+    db.shouldCountIps()
+    .then(shouldCount => {
+        res.send(shouldCount);
+    })
+    .catch(() => {
+        res.status(500);
+        res.send("Unable to retrieve IP count boolean");
+    });
+});
+
+app.put("/api/shouldcountips", (req, res) => {
+    handlePassword(req, res, () => {
+        const newBoolean = req.query.shouldcount === "true";
+        db.setShouldCountIps(newBoolean).then(readNewState => {
+            res.send(readNewState);
+        })
+        .catch(() => {
+            res.status(500);
+            res.send("Unable to set IP count boolean");
+        });
+    });
+});
+
 app.listen(3000, () => {
     console.log("Listening on port 3000!");
 });

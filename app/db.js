@@ -4,6 +4,7 @@ const LEADERS_DB_PATH = "./data/leaders.json";
 const VOTES_DB_PATH = "./data/votes.json";
 const IP_DB_PATH = "./data/ips.json";
 const VOTES_PER_IP = 7;
+const COUNT_IPS_PATH = "./data/count_ips.json";
 
 function readFile(path) {
     return new Promise((resolve, reject) => {
@@ -67,10 +68,6 @@ function votesForIp(ip) {
     });
 }
 
-function isIpAllowedToVote(ip) {
-    return votesForIp(ip).then(votes => votes < VOTES_PER_IP);
-}
-
 function addVoteForIp(name) {
     return getIpVotes().then(ips => {
         const voter = ips.find(ip => ip.name === name);
@@ -93,6 +90,21 @@ function resetVotes() {
     });
 }
 
+function shouldCountIps() {
+    return readFile(COUNT_IPS_PATH).then(data => JSON.parse(data).count);
+}
+
+function setShouldCountIps(shouldCount) {
+    const result = { count: shouldCount };
+    return writeFile(COUNT_IPS_PATH, JSON.stringify(result))
+    .then(() => shouldCountIps());
+}
+
+function isIpAllowedToVote(ip) {
+    return Promise.all([votesForIp(ip), shouldCountIps()])
+    .then(([votes, shouldCount]) => ((votes < VOTES_PER_IP) || !shouldCount));
+}
+
 module.exports = {
     getLeaders,
     getVotes,
@@ -101,4 +113,6 @@ module.exports = {
     isIpAllowedToVote,
     addVoteForIp,
     resetVotes,
+    shouldCountIps,
+    setShouldCountIps,
 };

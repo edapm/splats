@@ -2,32 +2,39 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Reset</title>
+        <title>Results</title>
     </head>
     <body>
-        <h1>Reset</h1>
+        <h1>Results</h1>
         <div id="results-root">
-            Enter password here to RESET the votes:&nbsp;
-            <input id="reset-password" />
-            <button id="reset-button">Submit</button>
-            <div id="reset-result"></div>
+            Enter password here:&nbsp;
+            <input id="results-password" />
+            <button id="results-button">Submit</button>
+            <pre id="results-result"></pre>
         </div>
     </body>
     <script type="application/javascript">
-        var button = document.getElementById("reset-button");
-        var input = document.getElementById("reset-password");
-        var output = document.getElementById("reset-result");
+        var button = document.getElementById("results-button");
+        var input = document.getElementById("results-password");
+        var output = document.getElementById("results-result");
         button.onclick = function() {
             var pw = input.value;
             var req = new XMLHttpRequest();
             req.onload = () => {
-                output.innerHTML = "Reset successful!"
+                var result = JSON.parse(req.responseText);
+                result.sort(function(a, b) { return (b.votes - a.votes)});
+                for(var i=0; i<result.length; i++) {
+                    output.innerHTML += (result[i].name + ": " + result[i].votes + "<br/>");
+                }
+                if(result.length === 0) {
+                    output.innerHTML = "No votes yet!"
+                }
             };
             req.onerror = () => {
                 var error = req.responseText;
                 output.innerHTML = error;
             };
-            req.open("PUT", "/api/reset?password=" + pw);
+            req.open("GET", "/api/results?password=" + pw);
             req.send();
         }
     </script>
