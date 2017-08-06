@@ -13,42 +13,49 @@ app.get('/', (req, res) => {
 app.use(express.static('static'))
 
 app.get('/api/leaders', (req, res) => {
-    db.getLeaders().then((leaders) => res.send(leaders))
+    db.getLeaders().then(leaders => res.send(leaders))
 })
 
 app.post('/api/vote', (req, res) => {
     const leaderName = req.query.leader
     const ip = req.ip
-    db.isIpAllowedToVote(ip).then(allowed => {
-        if (allowed) {
-            db.isLeaderNameValid(leaderName).then(valid => {
-                if (valid) {
-                    db.addVoteForLeader(leaderName)
-                        .then(() => db.addVoteForIp(ip))
-                        .then(() => {
-                            res.status(204)
-                            res.send()
-                        })
-                        .catch(() => {
-                            res.status(500)
-                            res.send('Server error')
-                        })
-                } else {
-                    res.status(400)
-                    res.send('Bad leader name')
-                }
-            }).catch(() => {
-                res.status(500)
-                res.send('IP valid failed')
-            })
-        } else {
-            res.status(403)
-            res.send('You have used all your votes for today!')
-        }
-    }).catch(() => {
-        res.status(500)
-        res.send('IP permission failed')
-    })
+    db
+        .isIpAllowedToVote(ip)
+        .then(allowed => {
+            if (allowed) {
+                db
+                    .isLeaderNameValid(leaderName)
+                    .then(valid => {
+                        if (valid) {
+                            db
+                                .addVoteForLeader(leaderName)
+                                .then(() => db.addVoteForIp(ip))
+                                .then(() => {
+                                    res.status(204)
+                                    res.send()
+                                })
+                                .catch(() => {
+                                    res.status(500)
+                                    res.send('Server error')
+                                })
+                        } else {
+                            res.status(400)
+                            res.send('Bad leader name')
+                        }
+                    })
+                    .catch(() => {
+                        res.status(500)
+                        res.send('IP valid failed')
+                    })
+            } else {
+                res.status(403)
+                res.send('You have used all your votes for today!')
+            }
+        })
+        .catch(() => {
+            res.status(500)
+            res.send('IP permission failed')
+        })
 })
 
 function handlePassword (req, res, handler) {
@@ -63,29 +70,36 @@ function handlePassword (req, res, handler) {
 
 app.get('/api/results', (req, res) => {
     handlePassword(req, res, () => {
-        db.getVotes().then(votes => {
-            res.send(votes)
-        }).catch(() => {
-            res.status(500)
-            res.send('Internal server error')
-        })
+        db
+            .getVotes()
+            .then(votes => {
+                res.send(votes)
+            })
+            .catch(() => {
+                res.status(500)
+                res.send('Internal server error')
+            })
     })
 })
 
 app.put('/api/reset', (req, res) => {
     handlePassword(req, res, () => {
-        db.resetVotes().then(() => {
-            res.status(204)
-            res.send()
-        }).catch(() => {
-            res.status(500)
-            res.send('Internal server error')
-        })
+        db
+            .resetVotes()
+            .then(() => {
+                res.status(204)
+                res.send()
+            })
+            .catch(() => {
+                res.status(500)
+                res.send('Internal server error')
+            })
     })
 })
 
 app.get('/api/shouldcountips', (req, res) => {
-    db.shouldCountIps()
+    db
+        .shouldCountIps()
         .then(shouldCount => {
             res.send(shouldCount)
         })
@@ -98,9 +112,11 @@ app.get('/api/shouldcountips', (req, res) => {
 app.put('/api/shouldcountips', (req, res) => {
     handlePassword(req, res, () => {
         const newBoolean = req.query.shouldcount === 'true'
-        db.setShouldCountIps(newBoolean).then(readNewState => {
-            res.send(readNewState)
-        })
+        db
+            .setShouldCountIps(newBoolean)
+            .then(readNewState => {
+                res.send(readNewState)
+            })
             .catch(() => {
                 res.status(500)
                 res.send('Unable to set IP count boolean')

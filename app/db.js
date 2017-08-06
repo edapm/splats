@@ -39,7 +39,9 @@ function getVotes () {
 }
 
 function isLeaderNameValid (name) {
-    return getLeaders().then(leaders => leaders.map(leader => leader.name).includes(name))
+    return getLeaders().then(leaders =>
+        leaders.map(leader => leader.name).includes(name)
+    )
 }
 
 function addVoteForLeader (name) {
@@ -84,10 +86,9 @@ function addVoteForIp (name) {
 }
 
 function resetVotes () {
-    return writeFile(VOTES_DB_PATH, '[]')
-        .then(() => {
-            writeFile(IP_DB_PATH, '[]')
-        })
+    return writeFile(VOTES_DB_PATH, '[]').then(() => {
+        writeFile(IP_DB_PATH, '[]')
+    })
 }
 
 function shouldCountIps () {
@@ -96,13 +97,15 @@ function shouldCountIps () {
 
 function setShouldCountIps (shouldCount) {
     const result = { count: shouldCount }
-    return writeFile(COUNT_IPS_PATH, JSON.stringify(result))
-        .then(() => shouldCountIps())
+    return writeFile(COUNT_IPS_PATH, JSON.stringify(result)).then(() =>
+        shouldCountIps()
+    )
 }
 
 function isIpAllowedToVote (ip) {
-    return Promise.all([votesForIp(ip), shouldCountIps()])
-        .then(([votes, shouldCount]) => ((votes < VOTES_PER_IP) || !shouldCount))
+    return Promise.all([votesForIp(ip), shouldCountIps()]).then(
+        ([votes, shouldCount]) => votes < VOTES_PER_IP || !shouldCount
+    )
 }
 
 module.exports = {

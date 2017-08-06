@@ -12,10 +12,7 @@ export default ({ leaders, rootDomElement, windowDevTools }) => {
     // const store = createStore(reducer, applyMiddleware(thunk));
     const store = createStore(
         reducer,
-        compose(
-            applyMiddleware(thunk),
-            windowDevTools
-        )
+        compose(applyMiddleware(thunk), windowDevTools)
     )
     store.dispatch(setLeaders(leaders))
     ReactDOM.render(

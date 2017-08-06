@@ -4,7 +4,7 @@ import SplatGrid from './SplatGrid.jsx'
 import VoteConfirm from './VoteConfirm.jsx'
 import { dialogCancelPressed } from '../actions'
 
-const Root = ({ isDialogVisible, dismissDialog }) => (
+const Root = ({ isDialogVisible, dismissDialog }) =>
     <div className='root'>
         <div className='root-voteconfirm' hidden={!isDialogVisible}>
             <VoteConfirm onClick={dismissDialog} />
@@ -15,7 +15,6 @@ const Root = ({ isDialogVisible, dismissDialog }) => (
             <SplatGrid className='root-splatgrid' />
         </div>
     </div>
-)
 
 function mapStateToProps (state) {
     return {
