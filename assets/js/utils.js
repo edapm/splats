@@ -1,33 +1,33 @@
-function encodeDict(dict) {
-    const keys = Object.keys(dict);
-    return keys.map(key => `${key}=${dict[key]}`).join("&");
+function encodeDict (dict) {
+    const keys = Object.keys(dict)
+    return keys.map(key => `${key}=${dict[key]}`).join('&')
 }
 
-export function get(url) {
+export function get (url) {
     return new Promise((resolve, reject) => {
-        const req = new XMLHttpRequest();
+        const req = new XMLHttpRequest()
         req.onload = () => {
-            resolve(req.responseText);
-        };
+            resolve(req.responseText)
+        }
         req.onerror = () => {
-            reject(req.responseText);
-        };
-        req.open("GET", url);
-        req.send();
-    });
+            reject(req.responseText)
+        }
+        req.open('GET', url)
+        req.send()
+    })
 }
 
-export function post(url, data) {
+export function post (url, data) {
     return new Promise((resolve, reject) => {
-        const encodedUrl = `${url}?${encodeDict(data)}`;
-        const req = new XMLHttpRequest();
+        const encodedUrl = `${url}?${encodeDict(data)}`
+        const req = new XMLHttpRequest()
         req.onload = () => {
-            resolve(req.responseText);
-        };
+            resolve(req.responseText)
+        }
         req.onerror = () => {
-            reject(req.responseText);
-        };
-        req.open("POST", encodedUrl);
-        req.send();
-    });
+            reject(req.responseText)
+        }
+        req.open('POST', encodedUrl)
+        req.send()
+    })
 }

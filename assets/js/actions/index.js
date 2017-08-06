@@ -1,28 +1,28 @@
-import { post } from "../utils.js";
+import { post } from '../utils.js'
 
-export function setLeaders(leaders) {
+export function setLeaders (leaders) {
     return {
-        type: "SET_LEADERS",
+        type: 'SET_LEADERS',
         leaders,
-    };
+    }
 }
 
-export function votedForLeader() {
+export function votedForLeader () {
     return {
-        type: "VOTED_FOR_LEADER",
-    };
+        type: 'VOTED_FOR_LEADER',
+    }
 }
 
-export function voteForLeader(leader) {
+export function voteForLeader (leader) {
     return dispatch => {
-        post("/api/vote", { leader }).then(() => {
-            dispatch(votedForLeader());
-        });
-    };
+        post('/api/vote', { leader }).then(() => {
+            dispatch(votedForLeader())
+        })
+    }
 }
 
-export function dialogCancelPressed() {
+export function dialogCancelPressed () {
     return {
-        type: "DIALOG_CANCEL_PRESSED",
-    };
+        type: 'DIALOG_CANCEL_PRESSED',
+    }
 }

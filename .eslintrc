@@ -1,15 +1,22 @@
-{
-  "extends": "airbnb",
-  "env": {
-    "browser": true
-  },
-  "rules": {
-    "quotes": [2, "double"],
-    "indent": ["error", 4],
-    "react/prop-types": 0,
-    "react/jsx-indent": [1, 4],
-    "react/jsx-indent-props": [1, 4],
-    "react/jsx-closing-bracket-location": [1, "props-aligned"],
-    "react/jsx-filename-extension": 0,
-  }
-}
+parser: babel-eslint
+env:
+  browser: true
+  node: true
+extends:
+  - standard
+  - standard-react
+rules:
+  no-unused-vars: 'warn'
+  comma-dangle:
+    - 'error'
+    - 'always-multiline'
+  indent:
+    - 'error'
+    - 4
+  react/jsx-indent:
+    - 'error'
+    - 4
+  react/jsx-indent-props:
+    - 'error'
+    - 4
+  react/prop-types: 0

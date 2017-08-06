@@ -1,15 +1,15 @@
-import "babel-polyfill";
-import app from "./app.js";
-import { get } from "./utils.js";
+import 'babel-polyfill'
+import app from './app.js'
+import { get } from './utils.js'
 
-async function main() {
-    const response = await get("/api/leaders");
-    const leaders = JSON.parse(response);
+async function main () {
+    const response = await get('/api/leaders')
+    const leaders = JSON.parse(response)
     app({
-        rootDomElement: document.getElementById("root"),
+        rootDomElement: document.getElementById('root'),
         leaders,
         windowDevTools: window.devToolsExtension ? window.devToolsExtension() : f => f,
-    });
+    })
 }
 
-main();
+main()
