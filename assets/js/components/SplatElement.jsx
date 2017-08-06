@@ -1,11 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { splatelementBackground, darkTranslucent } from '../styles/colours'
+import {
+    primary,
+    splatelementBackground,
+    darkTranslucent,
+} from '../styles/colours'
 
 const Main = styled.div`
     background-color: ${splatelementBackground};
-    color: $colour-primary;
+    color: ${primary};
     cursor: pointer;
     padding-bottom: 150%;
     position: relative;
