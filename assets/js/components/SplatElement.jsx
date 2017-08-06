@@ -1,17 +1,67 @@
 import React from 'react'
+import styled from 'styled-components'
+
+import { splatelementBackground, darkTranslucent } from '../styles/colours'
+
+const Main = styled.div`
+    background-color: ${splatelementBackground};
+    color: $colour-primary;
+    cursor: pointer;
+    padding-bottom: 150%;
+    position: relative;
+    width: 100%;
+`
+
+const Content = styled.div`
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+    position: absolute;
+    height: 100%;
+`
+
+const Image = styled.div`
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    flex-basis: 100%;
+    flex-shrink: 1;
+    overflow-y: hidden;
+    height: 100%;
+    width: 100%;
+`
+
+const Text = styled.div`
+    flex-grow: 0;
+    font-size: 110%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    width: 100%;
+`
+
+const DimLayer = styled.div`
+    background-color: ${darkTranslucent};
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    z-index: 5;
+    opacity: 0;
+
+    &:hover {
+        opacity: 1;
+    }
+`
 
 export default ({ name, image, vote }) =>
-    <div className='splatelement' onClick={vote}>
-        <div className='splatelement-content'>
-            <div
-                className='splatelement-image'
-                style={{ backgroundImage: `url(${image})` }}
-            >
-                &nbsp;
-            </div>
-            <div className='splatelement-text'>
+    <Main onClick={vote}>
+        <Content>
+            <Image style={{ backgroundImage: `url(${image})` }}>&nbsp;</Image>
+            <Text>
                 {name}
-            </div>
-            <div className='splatelement-dimlayer' />
-        </div>
-    </div>
+            </Text>
+            <DimLayer />
+        </Content>
+    </Main>

@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import reducer from './reducers'
 import { setLeaders } from './actions'
+import './styles/global' // apply global styles
 
 import Root from './components/Root.jsx'
 

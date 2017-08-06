@@ -1,26 +1,39 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import styled from 'styled-components'
+
 import SplatElement from './SplatElement.jsx'
 import { voteForLeader } from '../actions'
 
-const SplatGrid = ({ className, leaders, vote }) =>
-    <div className={className}>
-        <div className='splatgrid'>
-            {leaders.map(leader =>
-                <div key={leader.name} className='splatgrid-element'>
-                    <SplatElement
-                        name={leader.name}
-                        image={`/images/${leader.img}`}
-                        vote={() => vote(leader.name)}
-                    />
-                </div>
-            )}
-        </div>
-    </div>
+const Main = styled.div`
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: stretch;
+`
+
+const Element = styled.div`
+    flex-basis: 133px;
+    flex-grow: 0;
+    padding: 20px;
+    min-width: 20%;
+`
+
+const SplatGrid = ({ leaders, vote }) =>
+    <Main>
+        {leaders.map(leader =>
+            <Element key={leader.name}>
+                <SplatElement
+                    name={leader.name}
+                    image={`/images/${leader.img}`}
+                    vote={() => vote(leader.name)}
+                />
+            </Element>
+        )}
+    </Main>
 
 function mapStateToProps (state, ownProps) {
     return {
-        className: ownProps.className,
         leaders: state.leaders,
     }
 }

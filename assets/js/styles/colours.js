@@ -1,0 +1,5 @@
+export const primary = '#000'
+export const textOnPrimary = '#fff'
+export const pageBackground = '#fff'
+export const darkTranslucent = 'rgba(0, 0, 0, 0.6)'
+export const splatelementBackground = '#fff'
