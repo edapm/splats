@@ -1,9 +1,12 @@
 import { injectGlobal } from 'styled-components'
 
+import background from '../../images/background.jpg'
+import badaboom from '../../fonts/badaboom.ttf'
+
 injectGlobal`
     @font-face {
         font-family: 'badaboom';
-        src: url('/fonts/badaboom.ttf');
+        src: url('${badaboom}');
     }
 
     body {
@@ -11,7 +14,7 @@ injectGlobal`
     }
 
     .root-background {
-        background-image: url("/images/background.jpg");
+        background-image: url(${background});
         background-position: center center;
         background-size: cover;
         height: 100%;
