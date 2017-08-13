@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 const P = styled.p`margin: 0;`
 
-export default class Results extends React.Component {
+export default class Admin extends React.Component {
     constructor (props) {
         super(props)
         this.state = {

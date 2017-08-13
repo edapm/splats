@@ -1,9 +1,9 @@
 import React from 'react'
-import { HashRouter as Router, Route } from 'react-router-dom'
+import { Switch, HashRouter as Router, Route } from 'react-router-dom'
 import styled from 'styled-components'
 
 import Root from './Root.jsx'
-import Results from './Results.jsx'
+import Admin from './Admin.jsx'
 import background from '../../images/background.jpg'
 
 const Div = styled.div`
@@ -22,7 +22,10 @@ const Div = styled.div`
 export default () =>
     <Router>
         <Div>
-            <Route exact path='/' component={Root} />
-            <Route path='/results' component={Results} />
+            <Switch>
+                <Route exact path='/' component={Root} />
+                <Route path='/admin' component={Admin} />
+                <Route render={() => <h1>404</h1>} />
+            </Switch>
         </Div>
     </Router>
