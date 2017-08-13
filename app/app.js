@@ -78,7 +78,7 @@ app.get('/api/results', (req, res) => {
     })
 })
 
-app.put('/api/reset', (req, res) => {
+app.post('/api/reset', (req, res) => {
     handlePassword(req, res, () => {
         db
             .resetVotes()
