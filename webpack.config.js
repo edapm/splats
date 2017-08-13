@@ -6,7 +6,7 @@ const config = {
     entry: './assets/js/bootstrap.js',
     output: {
         path: path.resolve(__dirname, 'static'),
-        filename: 'vote.bundle.js',
+        filename: 'bundle.js',
     },
     devtool: 'cheap-module-source-map',
     module: {
@@ -31,7 +31,7 @@ const config = {
     plugins: [
         new HtmlWebpackPlugin({
             template: './assets/html/vote.html',
-            filename: 'vote.html',
+            filename: 'index.html',
         }),
         new CopyWebpackPlugin([
             { from: './assets/html/reset.html' },

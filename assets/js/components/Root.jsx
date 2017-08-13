@@ -5,12 +5,6 @@ import SplatGrid from './SplatGrid.jsx'
 import VoteConfirm from './VoteConfirm.jsx'
 import { dialogCancelPressed } from '../actions'
 
-const Main = styled.div`
-    font-family: sans-serif;
-    font-weight: 300;
-    text-align: center;
-`
-
 const Overlay = styled.div`
     height: 100%;
     left: 0;
@@ -36,7 +30,7 @@ const Content = styled.div`
 const Grid = styled.div`padding: 0 5%;`
 
 const Root = ({ isDialogVisible, dismissDialog }) =>
-    <Main>
+    <div>
         <Overlay hidden={!isDialogVisible}>
             <VoteConfirm onClick={dismissDialog} />
         </Overlay>
@@ -47,7 +41,7 @@ const Root = ({ isDialogVisible, dismissDialog }) =>
                 <SplatGrid />
             </Grid>
         </Content>
-    </Main>
+    </div>
 
 function mapStateToProps (state) {
     return {

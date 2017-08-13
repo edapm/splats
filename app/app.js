@@ -6,10 +6,6 @@ const app = express()
 // Yeah I know I shouldn't hard-code passwords, but this is a tiny project.
 const PASSWORD = 'thisismypassword'
 
-app.get('/', (req, res) => {
-    res.redirect('./vote.html')
-})
-
 app.use(express.static('static'))
 
 app.get('/api/leaders', (req, res) => {

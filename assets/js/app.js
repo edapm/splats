@@ -7,7 +7,7 @@ import reducer from './reducers'
 import { setLeaders } from './actions'
 import './styles/global' // apply global styles
 
-import Root from './components/Root.jsx'
+import App from './components/App.jsx'
 
 export default ({ leaders, rootDomElement, windowDevTools }) => {
     // const store = createStore(reducer, applyMiddleware(thunk));
@@ -18,7 +18,7 @@ export default ({ leaders, rootDomElement, windowDevTools }) => {
     store.dispatch(setLeaders(leaders))
     ReactDOM.render(
         <Provider store={store}>
-            <Root />
+            <App />
         </Provider>,
         rootDomElement
     )
