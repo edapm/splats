@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import IPCounting from './IPCounting.jsx'
+
 const P = styled.p`margin: 0;`
 
 export default class Admin extends React.Component {
@@ -10,6 +12,7 @@ export default class Admin extends React.Component {
             password: '',
             results: [],
             showPasswordError: false,
+            shouldCountIps: null,
         }
 
         this.setPassword = this.setPassword.bind(this)
@@ -62,6 +65,10 @@ export default class Admin extends React.Component {
                         )}
                     </div>
                     <button onClick={this.getResults}>Update results</button>
+                </section>
+                <section>
+                    <h2>IP Counting</h2>
+                    <IPCounting password={this.state.password} />
                 </section>
             </div>
         )
