@@ -33,6 +33,7 @@ export default class Admin extends React.Component {
 
         this.setPassword = this.setPassword.bind(this)
         this.getResults = this.getResults.bind(this)
+        this.setSucceeded = this.setSucceeded.bind(this)
     }
 
     setPassword (e) {
@@ -47,10 +48,14 @@ export default class Admin extends React.Component {
             const json = await response.json()
             const sortedJson = json.sort((a, b) => b.votes - a.votes)
             this.setState({ results: sortedJson })
-            this.setState({ showPasswordError: false })
+            this.setSucceeded(true)
         } else {
-            this.setState({ showPasswordError: true })
+            this.setSucceeded(false)
         }
+    }
+
+    setSucceeded (success) {
+        this.setState({ showPasswordError: !success })
     }
 
     render () {
@@ -81,18 +86,26 @@ export default class Admin extends React.Component {
                 </section>
                 <section>
                     <h2>IP Counting</h2>
-                    <IPCounting password={this.state.password} />
+                    <IPCounting
+                        password={this.state.password}
+                        afterRequest={this.setSucceeded}
+                    />
                 </section>
                 <section>
                     <h2>Reset</h2>
                     <button
                         onClick={async () => {
-                            await fetch(
+                            const response = await fetch(
                                 `/api/reset?password=${this.state.password}`,
                                 {
                                     method: 'POST',
                                 }
                             )
+                            if (response.ok) {
+                                this.setSucceeded(true)
+                            } else {
+                                this.setSucceeded(false)
+                            }
                         }}
                     >
                         Reset results

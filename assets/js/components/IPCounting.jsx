@@ -24,14 +24,19 @@ export default class IPCounting extends React.Component {
     }
 
     async toggleIpState () {
-        await fetch(
+        const response = await fetch(
             `/api/shouldcountips?password=${this.props
                 .password}&shouldcount=${!this.state.shouldCountIps}`,
             {
                 method: 'PUT',
             }
         )
-        await this.updateIpState()
+        if (response.ok) {
+            await this.updateIpState()
+            this.props.afterRequest(true)
+        } else {
+            this.props.afterRequest(false)
+        }
     }
 
     async componentDidMount () {
