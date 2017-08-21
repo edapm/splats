@@ -8,50 +8,38 @@ const PASSWORD = 'thisismypassword'
 
 app.use(express.static('static'))
 
-app.get('/api/leaders', (req, res) => {
-    db.getLeaders().then(leaders => res.send(leaders))
+app.get('/api/leaders', async (req, res) => {
+    const leaders = await db.getLeaders()
+    res.send(leaders)
 })
 
-app.post('/api/vote', (req, res) => {
+app.post('/api/vote', async (req, res) => {
     const leaderName = req.query.leader
     const ip = req.ip
-    db
-        .isIpAllowedToVote(ip)
-        .then(allowed => {
-            if (allowed) {
-                db
-                    .isLeaderNameValid(leaderName)
-                    .then(valid => {
-                        if (valid) {
-                            db
-                                .addVoteForLeader(leaderName)
-                                .then(() => db.addVoteForIp(ip))
-                                .then(() => {
-                                    res.status(204)
-                                    res.send()
-                                })
-                                .catch(() => {
-                                    res.status(500)
-                                    res.send('Server error')
-                                })
-                        } else {
-                            res.status(400)
-                            res.send('Bad leader name')
-                        }
-                    })
-                    .catch(() => {
-                        res.status(500)
-                        res.send('IP valid failed')
-                    })
-            } else {
-                res.status(403)
-                res.send('You have used all your votes for today!')
-            }
-        })
-        .catch(() => {
-            res.status(500)
-            res.send('IP permission failed')
-        })
+
+    const isIpAllowedToVote = await db.isIpAllowedToVote(ip)
+    if (!isIpAllowedToVote) {
+        res.status(403)
+        res.send('You have used all your votes for today!')
+        return
+    }
+
+    const isLeaderNameValid = await db.isLeaderNameValid(leaderName)
+    if (!isLeaderNameValid) {
+        res.status(400)
+        res.send('Bad leader name')
+        return
+    }
+
+    try {
+        await db.addVoteForLeader(leaderName)
+        await db.addVoteForIp(ip)
+        res.status(204)
+        res.send()
+    } catch (err) {
+        res.status(500)
+        res.send('Server error')
+    }
 })
 
 function handlePassword (req, res, handler) {
