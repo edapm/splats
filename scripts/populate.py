@@ -6,10 +6,17 @@ def main():
     result = []
 
     for row in read_csv():
-        image = row[1].strip()
+        first_name = row[0].strip()
+        last_name = row[1].strip()
+        role = row[2].strip()
+        image = row[3].strip()
         if image == "--":
             image = None
-        entry = {"name": row[0].strip(), "img": image}
+        entry = {
+            "name": "{} {}".format(first_name, last_name[0]),
+            "role": role,
+            "img": image,
+        }
         result.append(entry)
 
     # Save to leaders.json
