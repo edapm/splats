@@ -15,9 +15,9 @@ export function votedForLeader () {
 
 export function voteForLeader (leader) {
     return dispatch => {
-        post('/api/vote', { leader }).then(() => {
-            dispatch(votedForLeader())
-        })
+        // display confirmation immediately for better UX
+        dispatch(votedForLeader())
+        post('/api/vote', { leader })
     }
 }
 
