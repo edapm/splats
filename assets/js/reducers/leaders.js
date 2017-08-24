@@ -1,9 +1,7 @@
-export default function (state = [], action) {
+export default function (state = {}, action) {
     switch (action.type) {
     case 'SET_LEADERS':
-        return [...action.leaders].sort((a, b) =>
-            a.name.localeCompare(b.name)
-        )
+        return action.leaders
     default:
         return state
     }

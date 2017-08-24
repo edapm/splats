@@ -1,9 +1,10 @@
 import csv
 import json
+import urllib
 
 
 def main():
-    result = []
+    result = {}
 
     for row in read_csv():
         first_name = row[0].strip()
@@ -12,15 +13,18 @@ def main():
         image = row[3].strip()
         if image == "--":
             image = None
+        short_name = "{} {}".format(first_name, last_name[0])
+        id = urllib.quote(short_name)
         entry = {
-            "name": "{} {}".format(first_name, last_name[0]),
+            "id": id,
+            "name": short_name,
             "role": role,
-            "img": image,
+            "image": image,
         }
-        result.append(entry)
+        result[id] = entry
 
     # Save to leaders.json
-    with open('data/leaders.json', 'w') as jsonfile:
+    with open('dump/leaders.json', 'w') as jsonfile:
         json.dump(result, jsonfile, indent=4, sort_keys=True)
 
 

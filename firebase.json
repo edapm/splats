@@ -1,0 +1,31 @@
+{
+    "database": {
+        "rules": "database.rules.json"
+    },
+    "hosting": {
+        "public": "static",
+        "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+        "rewrites": [
+            {
+                "source": "/api/leaders",
+                "function": "leaders"
+            },
+            {
+                "source": "/api/vote",
+                "function": "vote"
+            },
+            {
+                "source": "/api/results",
+                "function": "results"
+            },
+            {
+                "source": "/api/shouldcountips",
+                "function": "shouldcountips"
+            },
+            {
+                "source": "/api/reset",
+                "function": "reset"
+            }
+        ]
+    }
+}

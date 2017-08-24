@@ -46,8 +46,13 @@ export default class Admin extends React.Component {
         )
         if (response.ok) {
             const json = await response.json()
-            const sortedJson = json.sort((a, b) => b.votes - a.votes)
-            this.setState({ results: sortedJson })
+            const results = Object.entries(json).map(([id, votes]) => ({
+                name: decodeURIComponent(id),
+                votes,
+            }))
+
+            const sortedResults = results.sort((a, b) => b.votes - a.votes)
+            this.setState({ results: sortedResults })
             this.setSucceeded(true)
         } else {
             this.setSucceeded(false)

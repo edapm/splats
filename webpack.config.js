@@ -38,7 +38,6 @@ const config = {
             { from: './assets/html/results.html' },
             { from: './assets/html/shouldcountips.html' },
         ]),
-        new CopyWebpackPlugin([{ from: './dump/img', to: 'images/' }]),
     ],
 }
 

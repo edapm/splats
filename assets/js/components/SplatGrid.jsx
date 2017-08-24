@@ -19,18 +19,23 @@ const Element = styled.div`
     min-width: 20%;
 `
 
-const SplatGrid = ({ leaders, vote }) =>
-    <Main>
-        {leaders.map(leader =>
-            <Element key={leader.name}>
-                <SplatElement
-                    name={leader.name}
-                    image={`/images/${leader.img}`}
-                    vote={() => vote(leader.name)}
-                />
-            </Element>
-        )}
-    </Main>
+const SplatGrid = ({ leaders, vote }) => {
+    const sortedLeaders = Object.values(leaders)
+    sortedLeaders.sort((a, b) => a.name.localeCompare(b.name))
+    return (
+        <Main>
+            {sortedLeaders.map(leader =>
+                <Element key={leader.id}>
+                    <SplatElement
+                        name={leader.name}
+                        image={`https://firebasestorage.googleapis.com/v0/b/splats-test.appspot.com/o/${leader.image}?alt=media`}
+                        vote={() => vote(leader.id)}
+                    />
+                </Element>
+            )}
+        </Main>
+    )
+}
 
 function mapStateToProps (state, ownProps) {
     return {
