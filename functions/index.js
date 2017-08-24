@@ -11,10 +11,15 @@ const PASSWORD = 'thisismypassword'
 //  response.send("Hello from Firebase!");
 // });
 
+const database = admin.database()
+
+const leadersRef = database.ref('/leaders')
+const shouldCountIpsRef = database.ref('/shouldCountIps')
+const ipsRef = database.ref('/ips')
+const votesRef = database.ref('/votes')
+
 exports.leaders = functions.https.onRequest((req, res) =>
-    admin
-        .database()
-        .ref('/leaders')
+    leadersRef
         .once('value')
         .then(a => a.val())
         .then(leaders => {
@@ -29,16 +34,13 @@ exports.leaders = functions.https.onRequest((req, res) =>
 exports.vote = functions.https.onRequest((req, res) => {
     const leaderName = encodeURIComponent(req.query.leader)
     const ip = req.ip.replace(/\./g, '_')
+    const ipRef = ipsRef.child(ip)
 
-    const shouldCountIpsPromise = admin
-        .database()
-        .ref('/shouldCountIps')
+    const shouldCountIpsPromise = shouldCountIpsRef
         .once('value')
         .then(a => a.val())
 
-    const isIpAllowedToVotePromise = admin
-        .database()
-        .ref(`/ips/${ip}`)
+    const isIpAllowedToVotePromise = ipRef
         .once('value')
         .then(snap => snap.val())
         .then(votes => {
@@ -49,9 +51,7 @@ exports.vote = functions.https.onRequest((req, res) => {
             }
         })
 
-    const isLeaderNameValidPromise = admin
-        .database()
-        .ref('/leaders')
+    const isLeaderNameValidPromise = leadersRef
         .once('value')
         .then(snap => snap.val())
         .then(leaders => {
@@ -75,16 +75,12 @@ exports.vote = functions.https.onRequest((req, res) => {
         })
         .then(() => {
             // add vote
-            admin
-                .database()
-                .ref(`/votes/${leaderName}`)
+            votesRef
+                .child(leaderName)
                 .transaction(current => (current ? current + 1 : 1))
 
             // increment ip count
-            admin
-                .database()
-                .ref(`/ips/${ip}`)
-                .transaction(current => (current ? current + 1 : 1))
+            ipRef.transaction(current => (current ? current + 1 : 1))
 
             res.status(204)
             res.send()
@@ -106,9 +102,7 @@ const passwordHandler = handler => (req, res) => {
 
 exports.results = functions.https.onRequest(
     passwordHandler((req, res) => {
-        return admin
-            .database()
-            .ref('/votes')
+        return votesRef
             .once('value')
             .then(a => a.val())
             .then(votes => {
@@ -127,8 +121,8 @@ exports.results = functions.https.onRequest(
 
 exports.reset = functions.https.onRequest(
     passwordHandler((req, res) => {
-        const resetVotes = admin.database().ref('/votes').set({})
-        const resetIps = admin.database().ref('/ips').set({})
+        const resetVotes = votesRef.set({})
+        const resetIps = ipsRef.set({})
         return Promise.all([resetVotes, resetIps]).then(() => {
             res.status(204)
             res.send()
@@ -137,9 +131,7 @@ exports.reset = functions.https.onRequest(
 )
 
 const getShouldCountIps = (req, res) =>
-    admin
-        .database()
-        .ref('/shouldCountIps')
+    shouldCountIpsRef
         .once('value')
         .then(a => a.val())
         .then(shouldCountIps => {
@@ -152,7 +144,7 @@ const getShouldCountIps = (req, res) =>
 
 const setShouldCountIps = (req, res) => {
     const newValue = req.query.shouldcount === 'true'
-    return admin.database().ref('/shouldCountIps').set(newValue).then(() => {
+    return shouldCountIpsRef.set(newValue).then(() => {
         res.status(204)
         res.send()
     })
