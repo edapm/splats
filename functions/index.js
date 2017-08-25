@@ -18,19 +18,6 @@ const shouldCountIpsRef = database.ref('/shouldCountIps')
 const ipsRef = database.ref('/ips')
 const votesRef = database.ref('/votes')
 
-exports.leaders = functions.https.onRequest((req, res) =>
-    leadersRef
-        .once('value')
-        .then(a => a.val())
-        .then(leaders => {
-            res.send(leaders)
-        })
-        .catch(err => {
-            res.status(500)
-            res.send(err.message)
-        })
-)
-
 exports.vote = functions.https.onRequest((req, res) => {
     const leaderName = encodeURIComponent(req.query.leader)
     const ip = req.ip.replace(/\./g, '_')
@@ -130,36 +117,12 @@ exports.reset = functions.https.onRequest(
     })
 )
 
-const getShouldCountIps = (req, res) =>
-    shouldCountIpsRef
-        .once('value')
-        .then(a => a.val())
-        .then(shouldCountIps => {
-            res.send(shouldCountIps)
+exports.shouldcountips = functions.https.onRequest(
+    passwordHandler((req, res) => {
+        const newValue = req.query.shouldcount === 'true'
+        return shouldCountIpsRef.set(newValue).then(() => {
+            res.status(204)
+            res.send()
         })
-        .catch(() => {
-            res.status(500)
-            res.send('Unknown error')
-        })
-
-const setShouldCountIps = (req, res) => {
-    const newValue = req.query.shouldcount === 'true'
-    return shouldCountIpsRef.set(newValue).then(() => {
-        res.status(204)
-        res.send()
     })
-}
-
-exports.shouldcountips = functions.https.onRequest((req, res) => {
-    switch (req.method) {
-    case 'GET':
-        getShouldCountIps(req, res)
-        return
-    case 'PUT':
-        passwordHandler(setShouldCountIps)(req, res)
-        return
-    default:
-        res.status(405)
-        res.send()
-    }
-})
+)
