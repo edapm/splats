@@ -6,6 +6,7 @@ import thunk from 'redux-thunk'
 import reducer from './reducers'
 import { setLeaders } from './actions'
 import './styles/global' // apply global styles
+import { DB_URL } from './firebaseConfig'
 
 import App from './components/App.jsx'
 
@@ -20,6 +21,6 @@ export default async ({ rootDomElement, windowDevTools }) => {
         </Provider>,
         rootDomElement
     )
-    const leaders = await fetch('/api/leaders').then(a => a.json())
+    const leaders = await fetch(`${DB_URL}/leaders.json`).then(a => a.json())
     store.dispatch(setLeaders(leaders))
 }

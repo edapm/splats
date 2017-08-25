@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import SplatElement from './SplatElement.jsx'
 import { voteForLeader } from '../actions'
+import { STORAGE_URL } from '../firebaseConfig'
 
 const Main = styled.div`
     display: flex;
@@ -31,7 +32,7 @@ const SplatGrid = ({ leaders, vote }) => {
                 <Element key={leader.id}>
                     <SplatElement
                         name={leader.name}
-                        image={`https://firebasestorage.googleapis.com/v0/b/splats-test.appspot.com/o/${leader.image}?alt=media`}
+                        image={`https://firebasestorage.googleapis.com/v0/b/${STORAGE_URL}/o/${leader.image}?alt=media`}
                         vote={() => vote(leader.id)}
                     />
                 </Element>

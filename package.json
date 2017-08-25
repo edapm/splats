@@ -4,12 +4,13 @@
     "description": "Splat the leader!",
     "scripts": {
         "start": "firebase serve --only functions,hosting",
-        "prebuild": "rimraf static/",
-        "build": "webpack -p",
+        "build:live": "SPLATS_ENV=live webpack -p",
+        "build:test": "webpack -p",
+        "clean": "rimraf static/",
         "watch": "webpack --watch",
         "leaders": "python scripts/populate.py",
-        "deploy:test": "yarn run build && firebase deploy -P test",
-        "deploy:live": "yarn run build && firebase deploy -P live"
+        "deploy:test": "yarn run clean && yarn run build:test && firebase deploy -P test",
+        "deploy:live": "yarn run clean && yarn run build:live && firebase deploy -P live"
     },
     "author": "Ben Robinson",
     "license": "MIT",

@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { DB_URL } from '../firebaseConfig'
+
 const TRUE_COPY =
     'This means that an IP address can only vote 7 times (overnight voting)'
 const FALSE_COPY =
@@ -17,9 +19,9 @@ export default class IPCounting extends React.Component {
     }
 
     async updateIpState () {
-        const shouldCountIps = await fetch('/api/shouldcountips').then(r =>
-            r.json()
-        )
+        const shouldCountIps = await fetch(
+            `${DB_URL}/shouldCountIps.json`
+        ).then(r => r.json())
         this.setState({ shouldCountIps: shouldCountIps })
     }
 

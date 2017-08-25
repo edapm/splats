@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const webpack = require('webpack')
 const path = require('path')
 
 const config = {
@@ -38,6 +39,9 @@ const config = {
             { from: './assets/html/results.html' },
             { from: './assets/html/shouldcountips.html' },
         ]),
+        new webpack.DefinePlugin({
+            SPLATS_ENV: JSON.stringify(process.env.SPLATS_ENV),
+        }),
     ],
 }
 
