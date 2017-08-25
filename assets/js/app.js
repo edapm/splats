@@ -9,17 +9,17 @@ import './styles/global' // apply global styles
 
 import App from './components/App.jsx'
 
-export default ({ leaders, rootDomElement, windowDevTools }) => {
-    // const store = createStore(reducer, applyMiddleware(thunk));
+export default async ({ rootDomElement, windowDevTools }) => {
     const store = createStore(
         reducer,
         compose(applyMiddleware(thunk), windowDevTools)
     )
-    store.dispatch(setLeaders(leaders))
     ReactDOM.render(
         <Provider store={store}>
             <App />
         </Provider>,
         rootDomElement
     )
+    const leaders = await fetch('/api/leaders').then(a => a.json())
+    store.dispatch(setLeaders(leaders))
 }

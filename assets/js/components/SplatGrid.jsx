@@ -20,11 +20,14 @@ const Element = styled.div`
 `
 
 const SplatGrid = ({ leaders, vote }) => {
-    const sortedLeaders = Object.values(leaders)
-    sortedLeaders.sort((a, b) => a.name.localeCompare(b.name))
+    const leadersArray = Object.values(leaders)
+    leadersArray.sort((a, b) => a.name.localeCompare(b.name))
+    if (leadersArray.length === 0) {
+        return <Main>Loading...</Main>
+    }
     return (
         <Main>
-            {sortedLeaders.map(leader =>
+            {leadersArray.map(leader =>
                 <Element key={leader.id}>
                     <SplatElement
                         name={leader.name}
