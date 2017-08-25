@@ -25,6 +25,10 @@
             {
                 "source": "/api/reset",
                 "function": "reset"
+            },
+            {
+                "source": "**",
+                "destination": "/index.html"
             }
         ]
     }
