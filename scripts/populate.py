@@ -24,7 +24,7 @@ def main():
         result[id] = entry
 
     # Save to leaders.json
-    with open('dump/leaders.json', 'w') as jsonfile:
+    with open('dump/out/leaders.json', 'w') as jsonfile:
         json.dump(result, jsonfile, indent=4, sort_keys=True)
 
 
