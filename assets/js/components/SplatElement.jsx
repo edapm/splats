@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import LazyLoad from 'react-lazyload'
 
 import {
     primary,
@@ -62,7 +63,11 @@ const DimLayer = styled.div`
 export default ({ name, image, vote }) =>
     <Main onClick={vote}>
         <Content>
-            <Image style={{ backgroundImage: `url(${image})` }}>&nbsp;</Image>
+            <LazyLoad height='100%' once overflow debounce={100}>
+                <Image style={{ backgroundImage: `url(${image})` }}>
+                    &nbsp;
+                </Image>
+            </LazyLoad>
             <Text>
                 {name}
             </Text>
