@@ -15,9 +15,7 @@ const Overlay = styled.div`
 `
 
 const Heading = styled.h1`
-    font-family: badaboom;
     font-size: 6rem;
-    font-weight: normal;
     margin: 0;
     padding: 20px;
 `
