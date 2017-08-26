@@ -22,6 +22,8 @@ const Heading = styled.h1`
     padding: 20px;
 `
 
+const Copy = styled.p`font-size: 1.5rem;`
+
 const Content = styled.div`
     position: relative;
     z-index: 5;
@@ -36,7 +38,7 @@ const Root = ({ isDialogVisible, dismissDialog }) =>
         </Overlay>
         <Content>
             <Heading>Splat a leader!</Heading>
-            <p>Click a leader to vote for them!</p>
+            <Copy>Click a leader to vote for them!</Copy>
             <Grid>
                 <SplatGrid />
             </Grid>
