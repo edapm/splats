@@ -4,12 +4,11 @@ import styled from 'styled-components'
 
 import Root from './Root.jsx'
 import Admin from './Admin.jsx'
-import background from '../../images/background.jpg'
+import background from '../../images/background_2017.png'
 
 const Div = styled.div`
     background-image: url(${background});
-    background-position: center center;
-    background-size: cover;
+    background-repeat: repeat;
     height: 100%;
     position: fixed;
     width: 100%;
@@ -19,12 +18,26 @@ const Div = styled.div`
     text-align: center;
 `
 
+const AdminWrapper = styled.div`
+    background-color: white;
+    display: inline-block;
+    padding: 2em;
+    border-radius: 5px;
+    margin-top: 2em;
+`
+
 export default () =>
     <Router>
         <Div>
             <Switch>
                 <Route exact path='/' component={Root} />
-                <Route path='/admin' component={Admin} />
+                <Route
+                    path='/admin'
+                    render={() =>
+                        <AdminWrapper>
+                            <Admin />
+                        </AdminWrapper>}
+                />
                 <Route render={() => <h1>404</h1>} />
             </Switch>
         </Div>
