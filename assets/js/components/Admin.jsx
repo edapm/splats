@@ -13,7 +13,7 @@ const Results = ({ results }) => {
             <div>
                 {results.map(result =>
                     <P key={result.name}>
-                        {result.name} : {result.votes}
+                        {result.name} ({result.role}) : {result.votes}
                     </P>
                 )}
             </div>
@@ -46,10 +46,7 @@ export default class Admin extends React.Component {
         )
         if (response.ok) {
             const json = await response.json()
-            const results = Object.entries(json).map(([id, votes]) => ({
-                name: decodeURIComponent(id),
-                votes,
-            }))
+            const results = Object.values(json)
 
             const sortedResults = results.sort((a, b) => b.votes - a.votes)
             this.setState({ results: sortedResults })

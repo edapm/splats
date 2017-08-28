@@ -89,15 +89,30 @@ const passwordHandler = handler => (req, res) => {
 
 exports.results = functions.https.onRequest(
     passwordHandler((req, res) => {
-        return votesRef
+        const votesPromise = votesRef
             .once('value')
             .then(a => a.val())
-            .then(votes => {
-                if (!votes) {
-                    res.send({})
-                } else {
-                    res.send(votes)
-                }
+            .then(a => a || {})
+
+        const leadersPromise = leadersRef
+            .once('value')
+            .then(a => a.val())
+            .then(a => a || {})
+
+        return Promise.all([votesPromise, leadersPromise])
+            .then(([votes, leaders]) => {
+                const results = {}
+                Object.keys(leaders).forEach(leaderId => {
+                    if (votes[leaderId] != null) {
+                        results[leaderId] = Object.assign(
+                            {},
+                            leaders[leaderId],
+                            { votes: votes[leaderId] }
+                        )
+                    }
+                })
+
+                res.send(results)
             })
             .catch(() => {
                 res.status(500)
