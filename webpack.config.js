@@ -4,7 +4,7 @@ const webpack = require('webpack')
 const path = require('path')
 
 const config = {
-    entry: './assets/js/bootstrap.js',
+    entry: ['whatwg-fetch', 'babel-polyfill', './assets/js/bootstrap.js'],
     output: {
         path: path.resolve(__dirname, 'static'),
         filename: 'bundle.js',
