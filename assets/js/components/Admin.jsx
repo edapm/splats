@@ -3,20 +3,43 @@ import styled from 'styled-components'
 
 import IPCounting from './IPCounting.jsx'
 
-const P = styled.p`margin: 0;`
+const CenteredDiv = styled.div`
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+`
+
+const Th = styled.th`padding: 0 1em;`
 
 const Results = ({ results }) => {
     if (results.length === 0) {
         return <p>No votes cast!</p>
     } else {
         return (
-            <div>
-                {results.map(result =>
-                    <P key={result.name}>
-                        {result.name} ({result.role}) : {result.votes}
-                    </P>
-                )}
-            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <Th>Name</Th>
+                        <Th>Role</Th>
+                        <Th>Votes</Th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {results.map(result =>
+                        <tr key={result.name}>
+                            <td>
+                                {result.name}
+                            </td>
+                            <td>
+                                {result.role}
+                            </td>
+                            <td>
+                                {result.votes}
+                            </td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
         )
     }
 }
@@ -80,10 +103,10 @@ export default class Admin extends React.Component {
                 </section>
                 <section>
                     <h2>Results</h2>
-                    <div>
+                    <CenteredDiv>
                         {this.state.results != null &&
                             <Results results={this.state.results} />}
-                    </div>
+                    </CenteredDiv>
                     <button onClick={this.getResults}>Update results</button>
                 </section>
                 <section>
