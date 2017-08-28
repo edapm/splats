@@ -44,6 +44,8 @@ const Results = ({ results }) => {
     }
 }
 
+const IncorrectPassword = styled.span`color: red;`
+
 export default class Admin extends React.Component {
     constructor (props) {
         super(props)
@@ -52,6 +54,7 @@ export default class Admin extends React.Component {
             results: null,
             showPasswordError: false,
             shouldCountIps: null,
+            isResetting: false,
         }
 
         this.setPassword = this.setPassword.bind(this)
@@ -97,9 +100,9 @@ export default class Admin extends React.Component {
                         />
                     </label>
                     <br />
-                    <span hidden={!this.state.showPasswordError}>
+                    <IncorrectPassword hidden={!this.state.showPasswordError}>
                         Incorrect password!
-                    </span>
+                    </IncorrectPassword>
                 </section>
                 <section>
                     <h2>Results</h2>
@@ -118,23 +121,33 @@ export default class Admin extends React.Component {
                 </section>
                 <section>
                     <h2>Reset</h2>
-                    <button
-                        onClick={async () => {
-                            const response = await fetch(
-                                `/api/reset?password=${this.state.password}`,
-                                {
-                                    method: 'POST',
+                    <p>
+                        Click below to reset the leader votes and IP counting
+                        log.
+                    </p>
+                    <p>
+                        <button
+                            onClick={async () => {
+                                this.setState({ isResetting: true })
+                                const response = await fetch(
+                                    `/api/reset?password=${this.state
+                                        .password}`,
+                                    {
+                                        method: 'POST',
+                                    }
+                                )
+                                if (response.ok) {
+                                    this.setSucceeded(true)
+                                } else {
+                                    this.setSucceeded(false)
                                 }
-                            )
-                            if (response.ok) {
-                                this.setSucceeded(true)
-                            } else {
-                                this.setSucceeded(false)
-                            }
-                        }}
-                    >
-                        Reset results
-                    </button>
+                                this.setState({ isResetting: false })
+                            }}
+                        >
+                            Reset results
+                        </button>
+                    </p>
+                    {this.state.isResetting && <p>Resetting...</p>}
                 </section>
             </div>
         )
