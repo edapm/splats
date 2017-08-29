@@ -53,9 +53,10 @@ const DimLayer = styled.div`
     position: absolute;
     z-index: 5;
     opacity: 0;
-
-    &:hover {
-        opacity: 1;
+    @media (hover: hover) {
+        &:hover {
+            opacity: 1;
+        }
     }
 `
 
