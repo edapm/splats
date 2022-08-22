@@ -9,8 +9,8 @@
         "clean": "rimraf static/",
         "watch": "webpack --watch",
         "assets": "pipenv run python scripts/leaders.py && pipenv run python scripts/images.py",
-        "deploy:test": "yarn run clean && yarn run build:test && firebase deploy -P test",
-        "deploy:live": "yarn run clean && yarn run build:live && firebase deploy -P live"
+        "deploy:test": "firebase deploy -P test",
+        "deploy:live": "firebase deploy -P live"
     },
     "author": "Ben Robinson",
     "license": "MIT",
