@@ -1,6 +1,6 @@
 import csv
 import json
-import urllib
+import urllib.parse
 
 
 def main():
@@ -14,7 +14,7 @@ def main():
         if image == "--":
             image = None
         short_name = "{} {}".format(first_name, last_name[0])
-        id = urllib.quote(short_name)
+        id = urllib.parse.quote(short_name)
         entry = {
             "id": id,
             "name": short_name,
