@@ -32,7 +32,7 @@ const SplatGrid = ({ leaders, vote }) => {
                 <Element key={leader.id}>
                     <SplatElement
                         name={leader.name}
-                        image={`https://firebasestorage.googleapis.com/v0/b/${STORAGE_URL}/o/${leader.image}?alt=media`}
+                        image={`https://firebasestorage.googleapis.com/v0/b/${STORAGE_URL}/o/${encodeURIComponent(leader.image)}?alt=media`}
                         vote={() => vote(leader.id)}
                     />
                 </Element>
