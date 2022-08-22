@@ -20,4 +20,4 @@ jobs:
         cache: 'yarn'
     - run: yarn install --frozen-lockfile # optional, --immutable
     - run: yarn build:live
-    - run: yarn deploy:live
+    - run: yarn deploy:live --token "$FIREBASE_TOKEN"
