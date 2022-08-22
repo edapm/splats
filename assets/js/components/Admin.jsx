@@ -13,7 +13,7 @@ const Th = styled.th`padding: 0 1em;`
 
 const Results = ({ results }) => {
     if (results.length === 0) {
-        return <p>No votes cast!</p>
+        return <p>No votes cast.</p>
     } else {
         return (
             <table>
