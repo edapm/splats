@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import Root from './Root.jsx'
 import Admin from './Admin.jsx'
-import background from '../../images/background_2022.jpg'
+import background from '../../images/background_2022.png'
 
 const Div = styled.div`
     background-image: url(${background});
